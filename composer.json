@@ -1,0 +1,35 @@
+{
+    "name": "vanderb/laravel-sluggable-redirect",
+    "keywords": [
+        "vanderb",
+        "laravel-sluggable"
+    ],
+    "description": "Creates sluggable-history if slug created from laravel-sluggable-package by Spatie and redirects to current slug.",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Freerk van Zeijl",
+        "email": "freerk.vz@googlemail.com",
+        "role": "Developer"
+      }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "laravel-sluggable": "2.1.5"
+    },
+    "require-dev": {
+      
+    },
+    "autoload": {
+      "psr-4": {
+        "Vanderb\\SluggableRedirects\\": "src"
+      }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Vanderb\\SluggableRedirect\\SluggableRedirectServiceProvider"
+            ]
+        }
+    }
+  }
