@@ -6,7 +6,7 @@ Base on laravel-sluggable by spatie
 
 ### Install
 
-`composer require vanderb/laravel-sluggable-redirects`
+`composer require vanderb/laravel-sluggable-redirect`
 
 ### Migrate
 
