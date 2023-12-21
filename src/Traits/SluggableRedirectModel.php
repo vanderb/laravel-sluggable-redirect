@@ -3,23 +3,26 @@ namespace Vanderb\SluggableRedirect\Traits;
 
 use Vanderb\SluggableRedirect\Models\SluggableRedirect;
 
-trait SluggableRedirectModel {
-
+trait SluggableRedirectModel
+{
     public static function boot() {
 
-        if(!static::getEventDispatcher()){
+        if (!static::getEventDispatcher()){
             static::setEventDispatcher( new \Illuminate\Events\Dispatcher());
         }
+
         parent::boot();
 
         static::updated(function($model) {
-            if($model->isDirty('slug')){
+            if ($model->isDirty('slug')){
                 // Get original Data
                 $original = $model->getOriginal();
-    
-                $model->sluggable()->create([
-                    'slug' => array_get($original, 'slug')
-                ]);
+
+                if (!empty($original['slug'])) {
+                    $model->sluggable()->create( [
+                        'slug' => $original['slug']
+                    ] );
+                }
             }
         });
 
@@ -31,5 +34,4 @@ trait SluggableRedirectModel {
     public function sluggable() {
         return $this->morphMany(SluggableRedirect::class, 'sluggable');
     }
-
 }
