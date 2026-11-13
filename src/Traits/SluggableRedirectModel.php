@@ -12,8 +12,11 @@ trait SluggableRedirectModel
 {
     protected static function bootSluggableRedirectModel(): void
     {
-        static::updating(function (Model $model): void {
-            if (! $model->isDirty('slug')) {
+        // `updated` (not `updating`) so this works regardless of the trait order and
+        // of the event the slug package regenerates the slug on (`saving`/`updating`),
+        // and so no redirect is stored if the update itself fails.
+        static::updated(function (Model $model): void {
+            if (! $model->wasChanged('slug')) {
                 return;
             }
 
