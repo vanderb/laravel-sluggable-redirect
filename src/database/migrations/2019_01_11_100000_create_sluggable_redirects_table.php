@@ -12,9 +12,11 @@ return new class extends Migration
     {
         Schema::create('sluggable_redirects', function (Blueprint $table): void {
             $table->id();
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->morphs('sluggable');
             $table->timestamps();
+
+            $table->unique(['sluggable_type', 'slug']);
         });
     }
 

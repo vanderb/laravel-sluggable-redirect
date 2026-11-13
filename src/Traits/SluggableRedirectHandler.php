@@ -23,6 +23,7 @@ trait SluggableRedirectHandler
 
         $redirect = SluggableRedirect::query()
             ->with('sluggable')
+            ->where('sluggable_type', $implementation->getMorphClass())
             ->where('slug', $slug)
             ->first();
 
