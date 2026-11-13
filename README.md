@@ -6,7 +6,19 @@
 
 ### Install
 
-`composer require vanderb/laravel-sluggable-redirect`
+`composer require slaver/laravel-sluggable-redirect`
+
+### Migrating from `vanderb/laravel-sluggable-redirect`
+
+This is the maintained continuation of the original package (which has not been updated since 2023). The PHP namespace (`Vanderb\SluggableRedirect`) and the table are unchanged, so only Composer needs to be told:
+
+```
+composer remove vanderb/laravel-sluggable-redirect
+composer require slaver/laravel-sluggable-redirect
+php artisan migrate
+```
+
+The package `replace`s the original one, so the two cannot be installed together.
 
 ### Migrate
 

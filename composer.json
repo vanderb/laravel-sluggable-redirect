@@ -1,12 +1,19 @@
 {
-    "name": "vanderb/laravel-sluggable-redirect",
+    "name": "slaver/laravel-sluggable-redirect",
     "keywords": [
-        "vanderb",
+        "laravel",
+        "sluggable",
+        "redirect",
+        "slug",
         "laravel-sluggable"
     ],
     "description": "Creates sluggable-history if slug created from laravel-sluggable-package by Spatie and redirects to current slug.",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Viacheslav Radionov",
+            "role": "Maintainer"
+        },
         {
             "name": "Freerk van Zeijl",
             "email": "freerk.vz@googlemail.com",
@@ -46,5 +53,8 @@
     },
     "scripts": {
         "test": "phpunit"
+    },
+    "replace": {
+        "vanderb/laravel-sluggable-redirect": "self.version"
     }
 }
