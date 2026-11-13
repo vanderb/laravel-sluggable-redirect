@@ -20,7 +20,14 @@ class SluggablePackagesIntegrationTest extends TestCase
 {
     protected function getPackageProviders($app): array
     {
-        return [...parent::getPackageProviders($app), CviebrockProvider::class, SluggableServiceProvider::class];
+        $providers = [...parent::getPackageProviders($app), CviebrockProvider::class];
+
+        // spatie/laravel-sluggable < 4 has no service provider
+        if (class_exists(SluggableServiceProvider::class)) {
+            $providers[] = SluggableServiceProvider::class;
+        }
+
+        return $providers;
     }
 
     protected function defineDatabaseMigrations(): void

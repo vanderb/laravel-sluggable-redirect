@@ -14,7 +14,7 @@ Run `php artisan migrate` to migrate the sluggable-redirects table.
 
 Requires PHP 8.2+ and Laravel 12 or 13 (Laravel 13 itself needs PHP 8.3+). Redirects are unique per `(sluggable_type, slug)`; when upgrading from an older version, the included migration converts the old global unique index automatically.
 
-The order of the traits on the model does not matter. Integration with `spatie/laravel-sluggable` (4–6) and `cviebrock/eloquent-sluggable` (12–13) is covered by tests. Note that cviebrock only regenerates a slug on update with `'onUpdate' => true` in `sluggable()`.
+The order of the traits on the model does not matter. Integration with `spatie/laravel-sluggable` (3.8–6) and `cviebrock/eloquent-sluggable` (12–13) is covered by tests. Note that cviebrock only regenerates a slug on update with `'onUpdate' => true` in `sluggable()`.
 
 Redirects survive soft deletes and are removed on force delete.
 
