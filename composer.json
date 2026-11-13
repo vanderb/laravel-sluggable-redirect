@@ -7,21 +7,23 @@
     "description": "Creates sluggable-history if slug created from laravel-sluggable-package by Spatie and redirects to current slug.",
     "license": "MIT",
     "authors": [
-      {
-        "name": "Freerk van Zeijl",
-        "email": "freerk.vz@googlemail.com",
-        "role": "Developer"
-      }
+        {
+            "name": "Freerk van Zeijl",
+            "email": "freerk.vz@googlemail.com",
+            "role": "Developer"
+        }
     ],
     "require": {
-        "php": "^8.2",
-        "illuminate/support": "^12.0",
-        "illuminate/database": "^12.0"
+        "php": "^8.3",
+        "illuminate/database": "^12.0|^13.0",
+        "illuminate/http": "^12.0|^13.0",
+        "illuminate/routing": "^12.0|^13.0",
+        "illuminate/support": "^12.0|^13.0"
     },
     "autoload": {
-      "psr-4": {
-        "Vanderb\\SluggableRedirect\\": "src"
-      }
+        "psr-4": {
+            "Vanderb\\SluggableRedirect\\": "src"
+        }
     },
     "extra": {
         "laravel": {
@@ -29,5 +31,18 @@
                 "Vanderb\\SluggableRedirect\\SluggableRedirectServiceProvider"
             ]
         }
+    },
+    "type": "library",
+    "require-dev": {
+        "orchestra/testbench": "^10.0|^11.0",
+        "phpunit/phpunit": "^11.5|^12.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vanderb\\SluggableRedirect\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
-  }
+}
