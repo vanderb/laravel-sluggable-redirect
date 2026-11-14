@@ -1,26 +1,36 @@
 {
-    "name": "vanderb/laravel-sluggable-redirect",
+    "name": "slaver/laravel-sluggable-redirect",
     "keywords": [
-        "vanderb",
+        "laravel",
+        "sluggable",
+        "redirect",
+        "slug",
         "laravel-sluggable"
     ],
     "description": "Creates sluggable-history if slug created from laravel-sluggable-package by Spatie and redirects to current slug.",
     "license": "MIT",
     "authors": [
-      {
-        "name": "Freerk van Zeijl",
-        "email": "freerk.vz@googlemail.com",
-        "role": "Developer"
-      }
+        {
+            "name": "Viacheslav Radionov",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Freerk van Zeijl",
+            "email": "freerk.vz@googlemail.com",
+            "role": "Developer"
+        }
     ],
     "require": {
-        "php": "^8.0",
-        "spatie/laravel-sluggable": "^3.0"
+        "php": "^8.2",
+        "illuminate/database": "^12.0|^13.0",
+        "illuminate/http": "^12.0|^13.0",
+        "illuminate/routing": "^12.0|^13.0",
+        "illuminate/support": "^12.0|^13.0"
     },
     "autoload": {
-      "psr-4": {
-        "Vanderb\\SluggableRedirect\\": "src"
-      }
+        "psr-4": {
+            "Vanderb\\SluggableRedirect\\": "src"
+        }
     },
     "extra": {
         "laravel": {
@@ -28,5 +38,23 @@
                 "Vanderb\\SluggableRedirect\\SluggableRedirectServiceProvider"
             ]
         }
+    },
+    "type": "library",
+    "require-dev": {
+        "orchestra/testbench": "^10.0|^11.0",
+        "phpunit/phpunit": "^11.5|^12.0",
+        "spatie/laravel-sluggable": "^3.8|^4.0|^5.0|^6.0",
+        "cviebrock/eloquent-sluggable": "^12.0|^13.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vanderb\\SluggableRedirect\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "replace": {
+        "vanderb/laravel-sluggable-redirect": "self.version"
     }
-  }
+}

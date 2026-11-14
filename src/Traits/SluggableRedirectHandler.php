@@ -1,25 +1,68 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Vanderb\SluggableRedirect\Traits;
 
+use Closure;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Vanderb\SluggableRedirect\Models\SluggableRedirect;
 
 trait SluggableRedirectHandler
 {
-    public function checkSlug(string $slug, $implementation, $cb) {
+    public function checkSlug(string $slug, Model $implementation, Closure $callback): mixed
+    {
+        $content = $implementation->newQuery()->where('slug', $slug)->first();
 
-        // If model with slug exists return callback (e.g. return view)
-        if ($content = $implementation->where('slug', $slug)->first()) {
-            return $cb($content);
+        if ($content) {
+            return $callback($content);
         }
 
-        // If not search for current slug and redirect
-        $route = request()->route()->getName();
-        $model = SluggableRedirect::where('slug', $slug)->first();
-        if (!is_null($model) && $model->sluggable) {
-            return redirect()->route($route, $model->sluggable->slug, 301);
+        $redirect = SluggableRedirect::query()
+            ->with('sluggable')
+            ->where('sluggable_type', $implementation->getMorphClass())
+            ->where('slug', $slug)
+            ->first();
+
+        if ($redirect && $redirect->sluggable) {
+            return $this->redirectToCurrentSlug((string) $redirect->sluggable->slug);
         }
 
-        // If no sluggable exists, return 404
-        return abort(404);
+        throw new NotFoundHttpException();
+    }
+
+    protected function redirectToCurrentSlug(string $slug): RedirectResponse
+    {
+        $route = request()->route();
+
+        if (! $route instanceof Route || ! $routeName = $route->getName()) {
+            throw new NotFoundHttpException();
+        }
+
+        $parameters = $this->buildRedirectParameters($route, $slug);
+
+        return redirect()->route($routeName, $parameters, 301);
+    }
+
+    /**
+     * Replace the slug parameter on the current route while keeping the rest intact.
+     */
+    protected function buildRedirectParameters(Route $route, string $slug): array
+    {
+        $parameters = $route->parameters();
+        $firstParameter = array_key_first($parameters);
+
+        if ($firstParameter === null) {
+            $parameterName = $route->parameterNames()[0] ?? 'slug';
+
+            return [$parameterName => $slug];
+        }
+
+        $parameters[$firstParameter] = $slug;
+
+        return $parameters;
     }
 }
